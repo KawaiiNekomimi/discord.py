@@ -1,0 +1,8 @@
+{
+    "author" : ["Fear"],
+    "install_msg" : "Thank you for installing my cog!",
+    "name" : "Skyblock",
+    "short" : "See info about your AH",
+    "description" : "Check the status of your AH for Hypixel",
+    "tags" : ["utility", "auctions"]
+}

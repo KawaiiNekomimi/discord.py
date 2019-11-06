@@ -1,3 +1,2 @@
 # discord.py
-Random discord.py projects\n
-Will upload a non-red v3 version after I finish translation
+Will upload a non-red v3 version of Skyblock.py after I finish translation

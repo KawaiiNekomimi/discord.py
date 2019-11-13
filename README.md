@@ -1,2 +1,2 @@
-# discord.py
-Will upload a non-red v3 version of Skyblock.py after I finish translation
+# Skyblock Bot
+It is recommended to use the Embed version, as it is overall cleaner.

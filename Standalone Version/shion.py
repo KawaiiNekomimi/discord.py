@@ -6,6 +6,7 @@ import time
 import shion_lib
 import discord
 import requests
+import sys
 
 
 class MyClient(discord.Client):
@@ -93,8 +94,16 @@ class MyClient(discord.Client):
         if re.compile(r"!sbhelp").match(message.content):
             embed = shion_lib.help()
             await message.channel.send(message.author.mention, embed=embed)
+            
+        if re.compile(r"!reload").match(message.content):
+            #Basic version, will be improved in the future.
+            author_id = str(message.author.id)
+            if author_id != owner_id:
+                return
+            await message.channel.send(":white_check_mark: Reloaded!")
+            os.execl(sys.executable, sys.executable, * sys.argv)
 
-
+owner_id = "Bot owner ID"
 client = MyClient()
 token = ("TOKEN")
 client.run(token)

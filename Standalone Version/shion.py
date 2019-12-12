@@ -14,6 +14,7 @@ class MyClient(discord.Client):
         await client.change_presence(activity=discord.Game(name='!sbhelp'))
 
     async def on_message(self, message):
+        path = os.path.dirname(os.path.abspath(__file__))
         if message.author == self.user:
             return
         blacklist = []
@@ -23,7 +24,7 @@ class MyClient(discord.Client):
         if re.compile(r"!ah").match(message.content):
             author = str(message.author.id)
             try:
-                usrdata = "usrdata/"+(author)+".json"
+                usrdata = path + "/usrdata/" + author +".json"
                 f = open(usrdata)
                 usr = json.load(f)
                 name = str(usr["name"])
@@ -51,7 +52,7 @@ class MyClient(discord.Client):
         if re.compile(r"!minion").match(message.content):
             author = str(message.author.id)
             try:
-                usrdata = "usrdata/"+(author)+".json"
+                usrdata = path + "/usrdata/" + author +".json"
                 f = open(usrdata)
                 usr = json.load(f)
                 name = str(usr["name"])
@@ -97,3 +98,4 @@ class MyClient(discord.Client):
 client = MyClient()
 token = ("TOKEN")
 client.run(token)
+path = os.path.dirname(os.path.abspath(__file__))

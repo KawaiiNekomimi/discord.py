@@ -79,7 +79,7 @@ def get_myauction(name, profile_id):
     r = requests.get(f"https://api.hypixel.net/skyblock/auction?key={api_key}&name={name}&profile={profile_id}", headers = {"content-type": "application/json"})
     data = r.json()
     myauction = list(data["auctions"])
-    embed = discord.Embed(title=f"**{name}** さんのオークション", color=0x00ff00)
+    embed = discord.Embed(title=f"**{name}**'s Auctions", color=0x00ff00)
     total_coins = 0
     for unclaimed in myauction:
         if (unclaimed["claimed"]) == False:
@@ -107,7 +107,7 @@ def get_myauction(name, profile_id):
                     total_coins = total_coins + int(highbid)
     if not embed.fields:
         embed.add_field(name = f":information_source: No auctions",value =f"There aren't any uncollected auctions",inline=False)
-    embed.add_field(name=":moneybag: 売上総額:", value="{: ,} ".format(int(total_coins)) +" coin", inline=False)
+    embed.add_field(name=":moneybag: Total Coins:", value="{: ,} ".format(int(total_coins)) +" coin", inline=False)
     return embed
 
 def addnewusr(author, name, profile_name):
@@ -116,11 +116,12 @@ def addnewusr(author, name, profile_name):
     for profs in profiles.values():
         if (profs["cute_name"]) == profile_name:
             profile_id = profs["profile_id"]
-            newfile = "usrdata/"+ author +".json"
+            newfile = path + "/usrdata/" + author +".json"
             with open(newfile, "w") as nf:
                 data = {"name": name, "profile_name": profile_name, "profile_id": profile_id}
                 json.dump(data, nf, ensure_ascii=False)
                 return name, profile_name, profile_id
     raise ValueError
 
-api_key = "API_KEY"
+api_key = "KEY"
+path = os.path.dirname(os.path.abspath(__file__))

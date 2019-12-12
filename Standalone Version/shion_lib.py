@@ -70,9 +70,9 @@ def get_minions_unlock(name, profile_id):
             next = (i - total)
             break
     embed = discord.Embed(title=f"**{name}**'s Minions", color=0x00ff00)
-    embed.add_field(name=f":information_source: Total times minions were created/upgraded", value=f"**{total}** 回")
-    embed.add_field(name=f":free: Number of minions that can be placed", value=f"**{result}** 枠")
-    embed.add_field(name=f":up: Next minion slot", value=f"**{next}** 回")
+    embed.add_field(name=f":information_source: Minions upgraded/unlocked", value=f"**{total}** times")
+    embed.add_field(name=f":free: Minion slots unlocked", value=f"**{result}** slots")
+    embed.add_field(name=f":up: Next minion slot", value=f"**{next}** times")
     return embed
 
 def get_myauction(name, profile_id):
@@ -95,19 +95,19 @@ def get_myauction(name, profile_id):
             deltad = delta.days
             highbid = "{:,}".format(int(unclaimed["highest_bid_amount"]))
             if end > 0:
-                embed.add_field(name=f":arrows_counterclockwise: Item: {count}×{item}", value=f"Time Remaining: {deltad}d {deltah}h {deltam}m {deltas}s\n**Highest Bid**: {highbid} coin", inline=False)
+                embed.add_field(name=f":arrows_counterclockwise: Item: {count}×{item}", value=f"Time Remaining: {deltad}d {deltah}h {deltam}m {deltas}s\n**Highest Bid**: {highbid} coins", inline=False)
                 highbid = highbid.replace(",", "")
                 total_coins = total_coins + int(highbid)
             else:
                 if int(unclaimed["highest_bid_amount"]) == 0:
                     embed.add_field(name=f":warning: Item: {count}×{item}", value=f"**Time Remaining**: Ended\n**Highest Bid**: No bid", inline=False)
                 else:
-                    embed.add_field(name=f":white_check_mark: Item: {count}×{item}", value=f"**Time Remaining**: Ended\n**Highest Bid**: {highbid} coin", inline=False)
+                    embed.add_field(name=f":white_check_mark: Item: {count}×{item}", value=f"**Time Remaining**: Ended\n**Highest Bid**: {highbid} coins", inline=False)
                     highbid = highbid.replace(",", "")
                     total_coins = total_coins + int(highbid)
     if not embed.fields:
         embed.add_field(name = f":information_source: No auctions",value =f"There aren't any uncollected auctions",inline=False)
-    embed.add_field(name=":moneybag: Total Coins:", value="{: ,} ".format(int(total_coins)) +" coin", inline=False)
+    embed.add_field(name=":moneybag: Total Coins:", value="{: ,} ".format(int(total_coins)) +" coins", inline=False)
     return embed
 
 def addnewusr(author, name, profile_name):

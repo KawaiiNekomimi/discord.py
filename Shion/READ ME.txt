@@ -1,0 +1,6 @@
+> Do not manually edit the .json files, or something may break!
+> NEVER share your discord token with anyone, only paste it in the command prompt when asked!
+> Reload Shion with '!reload shion'
+> There is currently an error with reloading that causes it to show the wrong error message in the Discord channel. I will update this to fix it soon! For now, just check your command line
+
+> To begin, run main.py

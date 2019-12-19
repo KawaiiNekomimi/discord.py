@@ -28,6 +28,11 @@ if str(config['token']) == "TOKEN":
     config['token'] = f"{token}"
     config['api_key'] = f"{api_key}"
     config['owner_id'] = f"{owner_id}"
+    if config['notify_channel'] == "None":
+        print("/!\-------------------------------/!\")
+        print("If you want to have a notification channel, please open shion.py (in the cogs folder) and add a notification id on line 36.")
+        print("/!\-------------------------------/!\")
+        config['notify_channel'] = f"Done"
     with open(path + '/data/config.json', 'w', encoding='utf-8-sig') as f:
         json.dump(config, f)
 

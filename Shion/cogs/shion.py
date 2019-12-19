@@ -9,7 +9,6 @@ import re
 import time
 from time import mktime
 
-import pysnooper
 import discord
 import feedparser
 import requests
@@ -27,12 +26,58 @@ def config_load():
         #  Please make sure encoding is correct, especially after editing the config file
         return json.load(doc)
 
+def global_id_load():
+    with open(path + '/global_notification/global_ids.json', 'r', encoding='utf-8-sig') as doc:
+        return json.load(doc)
+
+global_ids = global_id_load()
 config = config_load()
+# Add channel ID here to notify channels from
+notification_id = 123456789012345678
 
 class Shion(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+    
+    @commands.Cog.listener()
+    async def on_message(self, message):
+        if message.author.bot: #Ignores all bots656896858807074837
+            return
+        # Example on how to add regex to a command
+        #if re.compile(r"!ny").match(message.content):
+        #    ctx = await self.bot.get_context(message)
+        #    ny_command = self.bot.get_command("newyear")
+        #    await ctx.invoke(ny_command)
+        #    return
+        if message.channel.id == notification_id and int(config['owner_id']) == int(message.author.id):
+            notice = global_ids['channel_list']
+            for channel in notice:
+                notice_channel = self.bot.get_channel(channel)
+                if not notice_channel == None:
+                    await notice_channel.send(message.content)
+
+    @commands.command()
+    @commands.guild_only()
+    async def addnotification(self, ctx, channel: int = None):
+        if not channel:
+            return
+        global_ids['channel_list'].append(channel)
+        with open(path + '/global_notification/global_ids.json', 'w', encoding='utf-8-sig') as doc:
+            json.dump(global_ids, doc)
+        await ctx.send(f"Added {channel} to notification list.")
+
+
+    @commands.command()
+    @commands.guild_only()
+    async def notify(self, ctx, *, message: str = None):
+        if not message:
+            return
+        notice = global_ids['channel_list']
+        for channel in notice:
+            notice_channel = self.bot.get_channel(channel)
+            if not notice_channel == None:
+                await notice_channel.send(message)
 
     @commands.command()
     @commands.guild_only()
